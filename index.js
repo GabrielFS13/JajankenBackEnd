@@ -139,6 +139,6 @@ app.get("/", (req, res) =>{
 
 
 
-server.listen(443, () =>{
+server.listen(80, () =>{
     console.log("Server on!")
 })
