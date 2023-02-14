@@ -11,7 +11,7 @@ const io = new Server(server, {
     cors: {
         origin: '*'
     },
-    secure: true
+    secure: false
 })
 
 //verifica o vencedor
@@ -139,6 +139,6 @@ app.get("/", (req, res) =>{
 
 
 
-server.listen(443, () =>{
+server.listen(3001, () =>{
     console.log("Server on!")
 })
