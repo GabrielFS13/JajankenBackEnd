@@ -132,7 +132,9 @@ io.on('connect', (socket) =>{
 })
 
 
-
+app.get("/", (req, res) =>{
+    res.send("Server ON")
+})
 
 
 
