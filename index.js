@@ -1,10 +1,12 @@
+require('dotenv').config()
+
 const express = require("express")
 const app = express()
 const http = require('http')
 const { Server } = require('socket.io')
 const cors = require("cors")
 const path = require('path');
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 2000
 app.use(cors())
 
 const server = http.createServer(app)
@@ -139,6 +141,7 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '/index.html'));
 });
 
-server.listen(PORT, () =>{
+server.listen(PORT, (s) =>{
     console.log("Server on!")
+    console.log(PORT)
 })
