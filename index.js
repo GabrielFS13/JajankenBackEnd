@@ -3,6 +3,8 @@ const app = express()
 const http = require('http')
 const { Server } = require('socket.io')
 const cors = require("cors")
+const path = require('path');
+
 app.use(cors())
 
 const server = http.createServer(app)
@@ -133,11 +135,9 @@ io.on('connect', (socket) =>{
 })
 
 
-app.get("/", (req, res) =>{
-    res.send("Server ON")
-})
-
-
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, '/index.html'));
+});
 
 server.listen(3001, () =>{
     console.log("Server on!")
