@@ -36,7 +36,7 @@ function verificaVencedor(p1, p2){
                     p2: {
                         id: p2.id,
                         item: p2.item,
-                        skin: p1.skin
+                        skin: p2.skin
                     }
                     
                 }
@@ -52,7 +52,7 @@ function verificaVencedor(p1, p2){
                     p2: {
                         id: p2.id,
                         item: p2.item,
-                        skin: p1.skin
+                        skin: p2.skin
                     }
                     
                 }
@@ -68,7 +68,7 @@ function verificaVencedor(p1, p2){
                     p2: {
                         id: p2.id,
                         item: p2.item,
-                        skin: p1.skin
+                        skin: p2.skin
                     }
                     
                 }
@@ -96,7 +96,7 @@ function verificaVencedor(p1, p2){
                     p1: {
                             id: p2.id,
                             item: p2.item,
-                            skin: p1.skin
+                            skin: p2.skin
                         },
                     p2: {
                         id: p1.id,
@@ -129,7 +129,7 @@ io.on('connect', (socket) =>{
     socket.on('codigo_sala', (infos) =>{
         console.log(infos)
         socket.join(infos.codigo)
-        socket.to(infos.codigo).emit("novo_jogador", infos.id)
+        io.to(infos.codigo).emit("novo_jogador", infos.id)
     })
 
     socket.on("chat", (res) =>{
