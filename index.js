@@ -98,6 +98,7 @@ function verificaVencedor(p1, p2){
 
 
 var list_jogadas = []
+var msg_list = []
 
 io.on('connect', (socket) =>{
     const code = Math.floor(Math.random() * 500) 
@@ -119,8 +120,12 @@ io.on('connect', (socket) =>{
     })
 
     socket.on("chat", (res) =>{
-        console.log(res)
-        io.emit("revice_msg", res)
+        msg_list.push(res)
+        console.log(msg_list)
+        if(msg_list.length > 20){
+            msg_list = []
+        }
+        io.emit("revice_msg", msg_list)
     })
 
     
