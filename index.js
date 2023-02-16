@@ -21,8 +21,7 @@ const io = new Server(server, {
 //verifica o vencedor
 
 function verificaVencedor(p1, p2){
-            const venceu = `${p1.id} venceu!` 
-            const venceu2 = `${p2.id} venceu!` 
+            const venceu = ` venceu!` 
             const empate = "Empate!"
 
             if(p1.item === p2.item){
@@ -82,14 +81,14 @@ function verificaVencedor(p1, p2){
                 }
             }else{
                 return {
-                    status: venceu2,
+                    status: venceu,
                     p1: {
-                            id: p1.id,
-                            item: p1.item
+                            id: p2.id,
+                            item: p2.item
                         },
                     p2: {
-                        id: p2.id,
-                        item: p2.item
+                        id: p1.id,
+                        item: p1.item
                     }
                     
                 }
@@ -101,15 +100,27 @@ function verificaVencedor(p1, p2){
 var list_jogadas = []
 
 io.on('connect', (socket) =>{
+    const code = Math.floor(Math.random() * 500) 
+    console.log(code)
+    socket.join(code)
+
+    socket.emit("RoomCode", code)
 
     socket.on('jogada', (res) =>{
         console.log(res)
         jogadas(res)
     })
 
-    socket.on('jogadores', (res) =>{
+
+    socket.on('codigo_sala', (infos) =>{
+        console.log(infos)
+        socket.join(infos.codigo)
+        socket.to(infos.codigo).emit("novo_jogador", infos.id)
+    })
+
+    socket.on("chat", (res) =>{
         console.log(res)
-        socket.broadcast.emit("logado", res)
+        io.emit("revice_msg", res)
     })
 
     
@@ -122,11 +133,11 @@ io.on('connect', (socket) =>{
             if(list_jogadas.length <= 2 ){
                 if(jog.id !== jogada.id){
                     list_jogadas.push(jogada)
-                    io.emit("jogadas",  verificaVencedor(list_jogadas[0], list_jogadas[1]))
+                    io.to(jogada.sala_code).emit("jogadas",  verificaVencedor(list_jogadas[0], list_jogadas[1]))
                     console.log(verificaVencedor(list_jogadas[0], list_jogadas[1]))
                     list_jogadas = []
                 }else{
-                    socket.emit("jogadas", {status: "Esperando Oponente..."})
+                    io.to(jogada.sala_code).emit("jogadas", {status: "Esperando Oponente...", item: ''})
                 }
             }else{
                 list_jogadas = []
@@ -141,7 +152,7 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '/index.html'));
 });
 
-server.listen(PORT, (s) =>{
+server.listen(PORT, () =>{
     console.log("Server on!")
     console.log(PORT)
 })
