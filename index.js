@@ -23,17 +23,20 @@ const io = new Server(server, {
 function verificaVencedor(p1, p2){
             const venceu = ` venceu!` 
             const empate = "Empate!"
+            console.log("jogada: ", p1)
 
             if(p1.item === p2.item){
                 return {
                     status: empate,
                     p1: {
                             id: p1.id,
-                            item: p1.item
+                            item: p1.item,
+                            skin: p1.skin
                         },
                     p2: {
                         id: p2.id,
-                        item: p2.item
+                        item: p2.item,
+                        skin: p1.skin
                     }
                     
                 }
@@ -43,11 +46,13 @@ function verificaVencedor(p1, p2){
                     status: venceu,
                     p1: {
                             id: p1.id,
-                            item: p1.item
+                            item: p1.item,
+                            skin: p1.skin
                         },
                     p2: {
                         id: p2.id,
-                        item: p2.item
+                        item: p2.item,
+                        skin: p1.skin
                     }
                     
                 }
@@ -57,11 +62,13 @@ function verificaVencedor(p1, p2){
                     status: venceu,
                     p1: {
                             id: p1.id,
-                            item: p1.item
+                            item: p1.item,
+                            skin: p1.skin
                         },
                     p2: {
                         id: p2.id,
-                        item: p2.item
+                        item: p2.item,
+                        skin: p1.skin
                     }
                     
                 }
@@ -84,11 +91,13 @@ function verificaVencedor(p1, p2){
                     status: venceu,
                     p1: {
                             id: p2.id,
-                            item: p2.item
+                            item: p2.item,
+                            skin: p1.skin
                         },
                     p2: {
                         id: p1.id,
-                        item: p1.item
+                        item: p1.item,
+                        skin: p1.skin
                     }
                     
                 }
