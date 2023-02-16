@@ -78,12 +78,16 @@ function verificaVencedor(p1, p2){
                     status: venceu,
                     p1: {
                             id: p1.id,
-                            item: p1.item
-                        },
+                            item: p1.item,
+                            skin: p1.skin
+                        }
+                        ,
                     p2: {
                         id: p2.id,
-                        item: p2.item
+                        item: p2.item,
+                        skin: p2.skin
                     }
+                    
                     
                 }
             }else{
@@ -131,7 +135,7 @@ io.on('connect', (socket) =>{
     socket.on("chat", (res) =>{
         msg_list.push(res)
         console.log(msg_list)
-        if(msg_list.length > 20){
+        if(res.msg == '/clear'){
             msg_list = []
         }
         io.emit("revice_msg", msg_list)
@@ -151,7 +155,7 @@ io.on('connect', (socket) =>{
                     console.log(verificaVencedor(list_jogadas[0], list_jogadas[1]))
                     list_jogadas = []
                 }else{
-                    io.to(jogada.sala_code).emit("jogadas", {status: "Esperando Oponente...", item: ''})
+                    io.to(jogada.sala_code).emit("jogadas", {status: "Esperando oponente...", item: '', id: jogada.id})
                 }
             }else{
                 list_jogadas = []
