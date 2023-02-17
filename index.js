@@ -43,7 +43,7 @@ function verificaVencedor(p1, p2){
             }
             else if(p1.item === 'papel.png' && p2.item === 'pedra.png'){ 
                 return {
-                    status: venceu,
+                    status: p1.id + venceu,
                     p1: {
                             id: p1.id,
                             item: p1.item,
@@ -59,7 +59,7 @@ function verificaVencedor(p1, p2){
             }
             else if(p1.item === 'pedra.png' && p2.item === 'tesoura.png'){
                 return {
-                    status: venceu,
+                    status: p1.id + venceu,
                     p1: {
                             id: p1.id,
                             item: p1.item,
@@ -75,7 +75,7 @@ function verificaVencedor(p1, p2){
             }
             else if(p1.item === 'tesoura.png' && p2.item === 'papel.png'){
                 return {
-                    status: venceu,
+                    status: p1.id + venceu,
                     p1: {
                             id: p1.id,
                             item: p1.item,
@@ -92,7 +92,7 @@ function verificaVencedor(p1, p2){
                 }
             }else{
                 return {
-                    status: venceu,
+                    status: p2.id + venceu,
                     p1: {
                             id: p2.id,
                             item: p2.item,
@@ -114,11 +114,6 @@ var list_jogadas = []
 var msg_list = []
 
 io.on('connect', (socket) =>{
-    const code = Math.floor(Math.random() * 500) 
-    console.log(code)
-    socket.join(code)
-
-    socket.emit("RoomCode", code)
 
     socket.on('jogada', (res) =>{
         console.log(res)
